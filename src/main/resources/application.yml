@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: cards
+  profiles:
+    active: production
+  datasource:
+    url: ${cards.datasource.url}
+    username: ${cards.datasource.username}
+    password: ${cards.datasource.password}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: ${cards.datasource.database}
+    generate-ddl: ${cards.datasource.generate-ddl}
+    hibernate:
+      ddl-mode: ${cards.datasource.ddl-mode}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'info,health,refresh,metrics,mappings,hystrix.stream'
+
+info:
+  app:
+    name: "Cards service"
+    version: "0.0.1"
+    profile: ${spring.profiles.active}
+  serverInfo:
+    port: ${server.port}
+
+eureka:
+  client: ${eureka-client}
